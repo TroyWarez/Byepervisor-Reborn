@@ -34,8 +34,6 @@ uint64_t kgadget(kgadget_t gadget)
   switch(kernel_get_fw_version() & 0xffff0000) {
   case 0x10100000:
     return ktext(g_gadget_map_1010[gadget]);
-  case 0x12020000:
-    return ktext(g_gadget_map_1202[gadget]);
   case 0x12000000:
     return ktext(g_gadget_map_1200[gadget]);
   case 0x12020000:
