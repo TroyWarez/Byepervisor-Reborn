@@ -13,6 +13,8 @@
 #include "offsets/12_70.h"
 #include "offsets/13_00.h"
 #include "offsets/13_20.h"
+#include "offsets/13_40.h"
+#include "offsets/13_42.h"
 #include "offsets/13_60.h"
 
 uint64_t g_fw_version;
