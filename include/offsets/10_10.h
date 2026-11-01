@@ -1,7 +1,7 @@
 #ifndef OFFSETS_10_10_H
 #define OFFSETS_10_10_H
 
-static const uint64_t g_sym_map_1200[] = {
+static const uint64_t g_sym_map_1010[] = {
   0x3B6D254,  // KERNEL_SYM_DMPML4I
   0x3B6D258,  // KERNEL_SYM_DMPDPI
   0x3B6BE0C,  // KERNEL_SYM_PML4PML4I
@@ -18,7 +18,7 @@ static const uint64_t g_sym_map_1200[] = {
   0x82A60,    // HV_SYM_PCPUS
 };
 
-static const uint64_t g_gadget_map_1200[] = {
+static const uint64_t g_gadget_map_1010[] = {
   0x2A82DE,  // KERNEL_GADGET_PIVOT_ADD_RSP28_RET
   0x2B362D,  // KERNEL_GADGET_IRETQ
   0x26EA50,  // KERNEL_GADGET_POP_RAX

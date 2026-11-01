@@ -4,6 +4,13 @@
 #include "util.h"
 #include "kdlsym.h"
 
+#include "offsets/10_10.h"
+#include "offsets/12_00.h"
+#include "offsets/12_02.h"
+#include "offsets/12_20.h"
+#include "offsets/12_40.h"
+#include "offsets/12_60.h"
+#include "offsets/12_70.h"
 #include "offsets/13_00.h"
 #include "offsets/13_20.h"
 #include "offsets/13_60.h"
