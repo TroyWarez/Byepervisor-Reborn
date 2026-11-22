@@ -263,7 +263,7 @@ int main(void)
 
 #else // !KHOOK_TEST
 
-  int use_isolated = ((fw & 0xFFFF0000) == 0x11400000);
+  int use_isolated = ((fw & 0xFFFF0000) == 0x11400000 || (fw & 0xFFFF0000) == 0x11000000);
 
   // Make the physical region executable in guest page tables
   kernel_pmap   = kdlsym(KERNEL_SYM_PMAP_STORE);
@@ -309,7 +309,7 @@ int main(void)
 
   if (use_isolated) {
     // Install isolated resume hook (avoids POP_R8/STORE_RCX_R8/OR_RCX_EAX)
-    printf("[+] Installing resume hook (11.40 isolated path)...\n");
+    printf("[+] Installing resume hook (11.X0 isolated path)...\n");
     if (!resume_hook_1140_is_armed(cave)) {
       int r = resume_hook_1140_arm(cave, kernel_pm_cr3, g_hv_base_pa,
                                    break_hv, break_hv_len);
