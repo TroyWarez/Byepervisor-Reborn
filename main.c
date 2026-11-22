@@ -28,6 +28,7 @@
 #define HV_LOADER_PA_PRO          0x8e0800000
 
 uint64_t g_hv_base_pa;
+int sceSystemStateMgrEnterStandby(void);
 
 static int install_test_hook(int core_id, uint64_t cave)
 {
@@ -320,7 +321,9 @@ int main(void)
       }
 
       printf("[+] Resume hook armed, enter rest mode and resume!\n");
-      notifyf("Byepervisor Reborn\nEnter rest mode and resume!\n");
+      notifyf("Byepervisor Reborn\nEntering rest mode in 3 secs\n");
+      sleep(3);
+      sceSystemStateMgrEnterStandby();
     } else {
       printf("[+] Resume hook already armed (state survived)\n");
     }
@@ -381,7 +384,9 @@ int main(void)
       }
 
       printf("[+] Hook installed, enter sleep and resume!\n");
-      notifyf("Byepervisor Reborn\nEnter sleep and resume!\n");
+      notifyf("Byepervisor Reborn\nEntering rest mode in 3 secs\n");
+      sleep(3);
+      sceSystemStateMgrEnterStandby();
     } else {
       printf("khook: hook already ARMED (state survived)\n");
     }

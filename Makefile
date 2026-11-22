@@ -28,7 +28,7 @@ ELF := byepervisor_reborn.elf
 PAYLOAD_DIR := break_hv_payload
 PAYLOAD_HDR := $(PAYLOAD_DIR)/break_hv.h
 
-CFLAGS := -Wall -Werror -Wno-unused-function -Wno-unused-const-variable -g -I./include
+CFLAGS := -Wall -Werror -Wno-unused-function -Wno-unused-const-variable -g -I./include -lSceSystemService
 
 all: $(ELF)
 
