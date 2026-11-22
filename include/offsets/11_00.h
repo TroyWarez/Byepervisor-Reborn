@@ -11,7 +11,7 @@ static const uint64_t g_sym_map_1100[] = {
   0xC87E20,   // KERNEL_SYM_HV_MP_STARTUP_CALL     (from ps5-linux-loader 11.00)
   0x311518,   // KERNEL_SYM_MP_STARTUP_INIT_VECTOR  (from ps5-linux-loader 11.00)
   0x3B34F18,  // KERNEL_SYM_PMAP_STORE      (kstuff-lite kernel_pmap_store 0x2E04F18  + T 0xD30000)
-  0x2AE3000,  // KERNEL_SYM_DATA_CAVE       (from ps5-linux-loader 11.00)
+  0x2D02000,  // KERNEL_SYM_DATA_CAVE       (from ps5-linux-loader 11.00)
   0x3BA0300,  // KERNEL_SYM_IDT_ARRAY       (from ps5-linux-loader 11.00, verified kstuff idt + T)
   0x3BA2FE0,  // KERNEL_SYM_COMMON_TSS      (from ps5-linux-loader 11.00, verified kstuff tss + T)
   0x83028,    // HV_SYM_HEAP_BASE           (constant across all FW)
