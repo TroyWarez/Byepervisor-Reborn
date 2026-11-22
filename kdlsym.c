@@ -5,6 +5,7 @@
 #include "kdlsym.h"
 
 #include "offsets/11_00.h"
+#include "offsets/11_40.h"
 #include "offsets/12_00.h"
 #include "offsets/12_02.h"
 #include "offsets/12_20.h"
