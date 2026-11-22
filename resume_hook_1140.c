@@ -369,7 +369,8 @@ int resume_hook_1140_arm(uint64_t cave, uint64_t cr3,
   uint8_t verify[0x400], staged[AP_COPY_SIZE];
   int bad = 0;
 
-  if ((kernel_get_fw_version() & RESUME_1140_FW_MASK) != RESUME_1140_FW_MATCH ||
+  if ((kernel_get_fw_version() & RESUME_11X0_FW_MASK) != RESUME_1140_FW_MATCH ||
+      (kernel_get_fw_version() & RESUME_11X0_FW_MASK) != RESUME_1100_FW_MATCH ||
       !payload || !payload_len || payload_len > sizeof(staged) ||
       resume_hook_1140_is_armed(cave))
     return -1;
