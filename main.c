@@ -171,7 +171,7 @@ int main(void)
   uint64_t pte;
   uint64_t o;
 
-  printf("[+] Byepervisor reborn v1\n");
+  printf("[+] GoldenHEN Plugin Patcher v1\n");
 
   // Do a quick firmware version detect, if we don't have offsets for it, goodbye!
   fw = kernel_get_fw_version();
@@ -179,7 +179,7 @@ int main(void)
 
   if (kdlsym(KERNEL_SYM_HV_MP_STARTUP_CALL) == 0) {
     printf("[!] Undetected firmware, exiting!\n");
-    notifyf("[ERROR] Byepervisor Reborn\nFirmware is not supported :(\n");
+    notifyf("[ERROR] GoldenHEN Plugin Patcher\nFirmware is not supported :(\n");
   }
 
   // The hypervisor loader's base physical address changes depending on if its a regular or a pro unit
@@ -187,11 +187,11 @@ int main(void)
   if (soc_id == 0x840fd0) {
     g_hv_base_pa = HV_LOADER_PA_PRO;
     printf("[+] Pro model detected, HV loader PA = 0x%lx\n", g_hv_base_pa);
-    notifyf("Byepervisor Reborn\nDetected pro model (0x%x)\n", soc_id);
+    notifyf("GoldenHEN Plugin Patcher\nDetected pro model (0x%x)\n", soc_id);
   } else {
     g_hv_base_pa = HV_LOADER_PA_REGULAR;
     printf("[+] Regular model detected, HV loader PA = 0x%lx\n", g_hv_base_pa);
-    notifyf("Byepervisor Reborn\nDetected regular model (0x%x)\n", soc_id);
+    notifyf("GoldenHEN Plugin Patcher\nDetected regular model (0x%x)\n", soc_id);
   }
 
   // We need system ucred to pin to core 0
@@ -316,12 +316,12 @@ int main(void)
                                    break_hv, break_hv_len);
       if (r) {
         printf("[!] Failed to install resume hook: %d\n", r);
-        notifyf("[ERROR] Byepervisor Reborn\nResume hook install failed: %d", r);
+        notifyf("[ERROR] GoldenHEN Plugin Patcher\nResume hook install failed: %d", r);
         return r;
       }
 
       printf("[+] Resume hook armed, enter rest mode and resume!\n");
-      notifyf("Byepervisor Reborn\nEntering rest mode in 3 seconds...\n");
+      notifyf("GoldenHEN Plugin Patcher\nEntering rest mode in 3 seconds...\n");
       sleep(3);
       sceSystemStateMgrEnterStandby();
     } else {
@@ -345,9 +345,9 @@ int main(void)
                (unsigned long)verified);
 
         if (ap_error == 0 && written == 16 && verified == 16) {
-          notifyf("Byepervisor Reborn\nHypervisor defeated! 16/16 VMCBs patched");
+          notifyf("GoldenHEN Plugin Patcher\nHypervisor defeated! 16/16 VMCBs patched");
         } else {
-          notifyf("Byepervisor Reborn\nAP payload error=%lu w=%lu v=%lu",
+          notifyf("GoldenHEN Plugin Patcher\nAP payload error=%lu w=%lu v=%lu",
                   (unsigned long)ap_error, (unsigned long)written,
                   (unsigned long)verified);
         }
@@ -357,7 +357,7 @@ int main(void)
 
         test_val = kread64(ktext(0));
         test_val_bytes = (uint8_t *) &test_val;
-        notifyf("Byepervisor Reborn - Kernel .text first 8 bytes\n%02x %02x %02x %02x %02x %02x %02x %02x",
+        notifyf("GoldenHEN Plugin Patcher - Kernel .text first 8 bytes\n%02x %02x %02x %02x %02x %02x %02x %02x",
         test_val_bytes[0], test_val_bytes[1], test_val_bytes[2], test_val_bytes[3],
         test_val_bytes[4], test_val_bytes[5], test_val_bytes[6], test_val_bytes[7]);
 
@@ -379,12 +379,12 @@ int main(void)
       int r = install_resume_hook(HOOK_CORE, cave, kernel_pm_cr3);
       if (r) {
         printf("[!] Failed to install hook (likely too large)\n");
-        notifyf("[ERROR] Byepervisor Reborn\nHook install failed :(");
+        notifyf("[ERROR] GoldenHEN Plugin Patcher\nHook install failed :(");
         return r;
       }
 
       printf("[+] Hook installed, enter sleep and resume!\n");
-      notifyf("Byepervisor Reborn\nEntering rest mode in 3 seconds...\n");
+      notifyf("GoldenHEN Plugin Patcher\nEntering rest mode in 3 seconds...\n");
       sleep(3);
       sceSystemStateMgrEnterStandby();
     } else {
@@ -397,14 +397,14 @@ int main(void)
 
       o = kread64(oracle);
       if (o != 0) {
-        notifyf("Byepervisor Reborn\nWelcome back, hypervisor is defeated!\nCookie? 0x%lx", o);
+        notifyf("GoldenHEN Plugin Patcher\nWelcome back, hypervisor is defeated!\nCookie? 0x%lx", o);
 
         printf("[+] Uninstalling hook\n");
         uninstall_hook(HOOK_CORE, cave);
 
         test_val = kread64(ktext(0));
         test_val_bytes = (uint8_t *) &test_val;
-        notifyf("Byepervisor Reborn - Kernel .text first 8 bytes\n%02x %02x %02x %02x %02x %02x %02x %02x",
+        notifyf("GoldenHEN Plugin Patcher - Kernel .text first 8 bytes\n%02x %02x %02x %02x %02x %02x %02x %02x",
         test_val_bytes[0], test_val_bytes[1], test_val_bytes[2], test_val_bytes[3],
         test_val_bytes[4], test_val_bytes[5], test_val_bytes[6], test_val_bytes[7]);
 
