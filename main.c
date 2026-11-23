@@ -206,24 +206,6 @@ int main(void)
 #define DEBUG_MP_STARTUP_PAYLOAD 0
 #if DEBUG_MP_STARTUP_PAYLOAD == 0
   if (kread64(oracle) != 0) {
-    printf("Hypervisor is already compromised\n");
-    printf("Here's a dump of kernel .text base (xotext defeated)!\n");
-    kHexDump(ktext(0), 0x60);
-
-    printf("Here's a dump of some HV strings (hvcore+0x19830)!\n");
-    kHexDump(kdldmap(g_hv_base_pa + 0x72830), 0x60);
-
-    kwrite64(ktext(8), 0x41414141);
-
-    printf("Edited kernel .text\n");
-    kHexDump(ktext(0), 0x60);
-
-    test_val = kread64(ktext(0));
-    test_val_bytes = (uint8_t *) &test_val;
-    notifyf("Byepervisor - Kernel .text first 8 bytes\n%02x %02x %02x %02x %02x %02x %02x %02x", 
-      test_val_bytes[0], test_val_bytes[1], test_val_bytes[2], test_val_bytes[3], 
-      test_val_bytes[4], test_val_bytes[5], test_val_bytes[6], test_val_bytes[7]);
-
     return 0;
   }
 #endif
@@ -355,11 +337,6 @@ int main(void)
         printf("[+] Cleaning up resume hook\n");
         resume_hook_1140_cleanup(cave);
 
-        test_val = kread64(ktext(0));
-        test_val_bytes = (uint8_t *) &test_val;
-        notifyf("GoldenHEN Plugin Patcher - Kernel .text first 8 bytes\n%02x %02x %02x %02x %02x %02x %02x %02x",
-        test_val_bytes[0], test_val_bytes[1], test_val_bytes[2], test_val_bytes[3],
-        test_val_bytes[4], test_val_bytes[5], test_val_bytes[6], test_val_bytes[7]);
 
         return 0;
       } else if (entered != 0) {
@@ -401,13 +378,6 @@ int main(void)
 
         printf("[+] Uninstalling hook\n");
         uninstall_hook(HOOK_CORE, cave);
-
-        test_val = kread64(ktext(0));
-        test_val_bytes = (uint8_t *) &test_val;
-        notifyf("GoldenHEN Plugin Patcher - Kernel .text first 8 bytes\n%02x %02x %02x %02x %02x %02x %02x %02x",
-        test_val_bytes[0], test_val_bytes[1], test_val_bytes[2], test_val_bytes[3],
-        test_val_bytes[4], test_val_bytes[5], test_val_bytes[6], test_val_bytes[7]);
-
         // TODO: Patch kernel and all that fun stuff, we don't feel like doing this so someone else can do it :)
 
         return 0;
