@@ -219,9 +219,6 @@ static void uninstall_hook(int core_id, uint64_t cave)
 
 int main(void)
 {
-  uint64_t test_val;
-  uint8_t *test_val_bytes;
-
   uint32_t fw;
   uint64_t cave;
   uint64_t oracle;
