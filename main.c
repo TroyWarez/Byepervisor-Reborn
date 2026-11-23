@@ -1,3 +1,5 @@
+#include <stdint.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
@@ -29,6 +31,70 @@
 
 uint64_t g_hv_base_pa;
 int sceSystemStateMgrEnterStandby(void);
+
+// Adjust these offsets to match your target kernel
+#define OFFSET_TD_PROC      0x08
+#define OFFSET_P_PID        0xBC
+#define OFFSET_P_COMM       0x44C
+#define SYS_GET_APP_INFO    588
+
+struct thread;
+
+struct get_app_info_args {
+    int32_t pid;
+    void   *info;
+};
+
+typedef int (*sy_call_t)(struct thread *td, void *uap);
+
+struct sysent {
+    int32_t    sy_narg;
+    sy_call_t  sy_call;
+    uint16_t   sy_auevent;
+    void      *sy_systrace_args_func;
+    uint32_t   sy_entry;
+    uint32_t   sy_return;
+    uint32_t   sy_flags;
+    uint32_t   sy_thrcnt;
+};
+
+static sy_call_t orig_get_app_info = NULL;
+
+static int k_strcmp(const char *a, const char *b) {
+    while (*a && (*a == *b)) {
+        a++;
+        b++;
+    }
+    return *(const unsigned char *)a - *(const unsigned char *)b;
+}
+
+static int hook_get_app_info(struct thread *td, struct get_app_info_args *uap) {
+    if (uap->pid == 0 && td != NULL) {
+        uintptr_t proc = *(uintptr_t *)((uintptr_t)td + OFFSET_TD_PROC);
+        if (proc != 0) {
+            const char *p_comm = (const char *)(proc + OFFSET_P_COMM);
+            if (k_strcmp(p_comm, "eboot.bin") == 0) {
+                uap->pid = *(int32_t *)(proc + OFFSET_P_PID);
+            }
+        }
+    }
+    return orig_get_app_info(td, uap);
+}
+
+void install_get_app_info_hook(struct sysent *sysent_table) {
+    if (orig_get_app_info != NULL) {
+        return; // Already installed
+    }
+    orig_get_app_info = sysent_table[SYS_GET_APP_INFO].sy_call;
+    sysent_table[SYS_GET_APP_INFO].sy_call = (sy_call_t)hook_get_app_info;
+}
+
+void uninstall_get_app_info_hook(struct sysent *sysent_table) {
+    if (orig_get_app_info != NULL) {
+        sysent_table[SYS_GET_APP_INFO].sy_call = orig_get_app_info;
+        orig_get_app_info = NULL;
+    }
+}
 
 static int install_test_hook(int core_id, uint64_t cave)
 {
