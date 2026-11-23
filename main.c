@@ -35,7 +35,7 @@ int sceSystemStateMgrEnterStandby(void);
 // Adjust these offsets to match your target kernel
 #define OFFSET_TD_PROC      0x08
 #define OFFSET_P_PID        0xBC
-#define OFFSET_P_COMM       0x44C
+#define OFFSET_P_COMM       0x5DC
 #define SYS_GET_APP_INFO    588
 
 struct thread;
