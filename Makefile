@@ -23,7 +23,7 @@ else
     $(error PS5_PAYLOAD_SDK is undefined)
 endif
 
-ELF := GoldenHEN_Plugin_Patcher.elf
+ELF := GoldHEN_Plugin_Patcher.elf
 
 PAYLOAD_DIR := break_hv_payload
 PAYLOAD_HDR := $(PAYLOAD_DIR)/break_hv.h
